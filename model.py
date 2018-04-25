@@ -29,7 +29,8 @@ class Challenge():
         variants = config["supported_variants"]
         tc = config["supported_tc"]
         modes = config["supported_modes"]
-        return self.is_supported_speed(tc) and self.is_supported_variant(variants) and self.is_supported_mode(modes)
+        return self.is_supported_speed(tc) and self.is_supported_variant(variants) \
+            and self.is_supported_mode(modes) and self.is_supported_match(config)
 
     def score(self):
         ratedBonus = 200 if self.rated else 0
@@ -41,6 +42,16 @@ class Challenge():
 
     def challengerFullName(self):
         return "{}{}".format(self.challengerTitle + " " if self.challengerTitle else "", self.challengerName)
+
+    def is_supported_match(self, config):
+        if "supported_matches" not in config:
+            return True
+        if self.mode() in config["supported_matches"]:
+            if self.challengerTitle == "BOT" and config["supported_matches"][self.mode()] == "bot":
+                return True
+            if self.challengerTitle != "BOT" and config["supported_matches"][self.mode()] == "human":
+                return True
+        return False
 
     def __str__(self):
         return "{} {} challenge from {}({})".format(self.perf_name, self.mode(), self.challengerFullName(), self.challengerRating)

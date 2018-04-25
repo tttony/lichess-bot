@@ -48,4 +48,8 @@ supported_modes:             # game modes to accept
   - casual                   # unrated games
   - rated                    # rated games - must comment if the engine doesn't try to win
 
+supported_matches:
+  casual: "bot"
+  rated: "human"
+
 print_engine_stats: false    # print engine stats on each move

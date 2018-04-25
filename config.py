@@ -57,4 +57,12 @@ def load_config():
                 raise Exception("The polyglot book %s file does not exist." % book_dir)
             CONFIG["engine"]["polyglot_book"] = book_dir
 
+        if "supported_matches" in CONFIG:
+            match_modes = ["casual", "rated"]
+            player_types = ["bot", "human"]
+            for mode in match_modes:
+                if mode in CONFIG["supported_matches"]:
+                    if CONFIG["supported_matches"][mode] not in player_types:
+                        raise Exception("Section ´supported_matches´.´%s´ only accepts: bot or human as string wrapped in quotes." % mode)
+
     return CONFIG
