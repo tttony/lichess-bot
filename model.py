@@ -49,7 +49,7 @@ class Challenge():
         if self.mode() in config["supported_matches"]:
             if self.challengerTitle == "BOT" and config["supported_matches"][self.mode()] == "bot":
                 return True
-            if self.challengerTitle != "BOT" and config["supported_matches"][self.mode()] == "human":
+            if self.challengerTitle != "BOT" or self.challengerTitle == None and config["supported_matches"][self.mode()] == "human":
                 return True
         return False
 
