@@ -47,10 +47,12 @@ class Challenge():
         if "supported_matches" not in config:
             return True
         if self.mode() in config["supported_matches"]:
-            if self.challengerTitle == "BOT" and config["supported_matches"][self.mode()] == "bot":
-                return True
-            if self.challengerTitle != "BOT" or self.challengerTitle == None and config["supported_matches"][self.mode()] == "human":
-                return True
+            if config["supported_matches"][self.mode()] == "bot":
+                if self.challengerTitle == "BOT":
+                    return True
+            elif config["supported_matches"][self.mode()] == "human":
+                if self.challengerTitle != "BOT":
+                    return True
         return False
 
     def __str__(self):
